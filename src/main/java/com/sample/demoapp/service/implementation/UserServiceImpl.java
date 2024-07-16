@@ -1,7 +1,7 @@
 package com.sample.demoapp.service.implementation;
 
-//import com.sample.demoapp.Dto.UserDTO;
-//import com.sample.demoapp.mapper.UserMapper;
+import com.sample.demoapp.Dto.UserDTO;
+import com.sample.demoapp.mapper.UserMapper;
 import com.sample.demoapp.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     // DTO Code
-//    @Autowired
-//    private UserMapper userMapper;
-//
-//    @Override
-//    public UserDTO findByEmail(String email) {
-//        return userMapper.toDto(userRepository.findByEmail(email));
-//    }
+   @Autowired
+   private UserMapper userMapper;
+
+   @Override
+   public UserDTO findByEmailUsingDTO(String email) {
+       return userMapper.toDto(userRepository.findByEmail(email));
+   }
 
     // Normal Code
     @Override

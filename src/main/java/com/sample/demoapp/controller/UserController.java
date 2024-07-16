@@ -1,6 +1,6 @@
 package com.sample.demoapp.controller;
 
-//import com.sample.demoapp.Dto.UserDTO;
+import com.sample.demoapp.Dto.UserDTO;
 import com.sample.demoapp.model.UserModel;
 import com.sample.demoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,15 @@ public class UserController {
         this.userService = userService;
     }
 
-//    // DTO Code
-//    @GetMapping("/{email}")
-//    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
-//        UserDTO userDTO = userService.findByEmail(email);
-//        return ResponseEntity.ok(userDTO);
-//    }
+   // DTO Code http://localhost:8080/users/DTO/vijay@gmail.com
+   @GetMapping("/DTO/{email}")
+   public ResponseEntity<UserDTO> getUserByEmailUsingDTO(@PathVariable String email) {
+       System.out.println(email);
+       UserDTO userDTO = userService.findByEmailUsingDTO(email);
+       return ResponseEntity.ok(userDTO);
+   }
 
-     // Normal Code
+     // Normal Method
     @GetMapping("/{email}")
     public ResponseEntity<UserModel> getUserByEmail(@PathVariable String email) {
          UserModel userModel = userService.findByEmail(email);

@@ -1,12 +1,12 @@
 package com.sample.demoapp.service;
 
-//import com.sample.demoapp.Dto.UserDTO;
+import com.sample.demoapp.Dto.UserDTO;
 import com.sample.demoapp.model.UserModel;
 
 public interface UserService {
 
     // DTO Code
-//    UserDTO findByEmail(String email);
+   UserDTO findByEmailUsingDTO(String email);
 
     // Normal Code
     UserModel findByEmail(String email);
