@@ -20,13 +20,42 @@ public class UserController {
         this.userService = userService;
     }
 
-   // DTO Code http://localhost:8080/users/DTO/vijay@gmail.com
+   // DTO Code
    @GetMapping("/DTO/{email}")
    public ResponseEntity<UserDTO> getUserByEmailUsingDTO(@PathVariable String email) {
        System.out.println(email);
        UserDTO userDTO = userService.findByEmailUsingDTO(email);
        return ResponseEntity.ok(userDTO);
    }
+   @PostMapping("/DTO")
+   public ResponseEntity<String> addUserUsingDTO(@RequestBody UserDTO userDTO){
+       boolean result = userService.addNewUserUsingDTO(userDTO);
+       if(result)
+           return ResponseEntity.ok("User Added Successfully");
+       else
+           return ResponseEntity.ok("User Fail to Add");
+   }
+
+   @DeleteMapping("/DTO/{email}")
+   public ResponseEntity<String> deleteUserUsingDTO(@PathVariable String email){
+       boolean result = userService.deleteByEmailUsingDTO(email);
+       if (result)
+           return ResponseEntity.ok("User Deleted Successfully.");
+       else
+           return ResponseEntity.ok("User Delet Failed.");
+   }
+
+
+   @PutMapping("/DTO/updatePassword")
+   public ResponseEntity<String> updatePasswordUsingDTO(@RequestBody Map<String, String> payload){
+       boolean result = userService.updatePasswordUsingDTO(payload.get("email"), payload.get("newPassword"));
+       if (result) {
+           return ResponseEntity.ok("Password Updated Successfully.");
+       } else {
+           return ResponseEntity.status(404).body("User Not Found.");
+       }
+   }
+
 
      // Normal Method
     @GetMapping("/{email}")

@@ -19,9 +19,34 @@ public class UserServiceImpl implements UserService {
    private UserMapper userMapper;
 
    @Override
-   public UserDTO findByEmailUsingDTO(String email) {
-       return userMapper.toDto(userRepository.findByEmail(email));
-   }
+    public UserDTO findByEmailUsingDTO(String email) {
+        return userMapper.toDto(userRepository.findByEmail(email));
+    }
+
+    @Override
+    public boolean addNewUserUsingDTO(UserDTO userDTO) {
+        UserModel userModel = userMapper.toEntity(userDTO);
+        userRepository.save(userModel);
+        return true;
+    }
+
+    @Override
+    public boolean deleteByEmailUsingDTO(String email) {
+        userRepository.deleteByEmail(email);
+        return true;
+    }
+
+    @Override
+    public boolean updatePasswordUsingDTO(String email, String newPassword) {
+        UserModel user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
 
     // Normal Code
     @Override
@@ -41,6 +66,7 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
     public boolean updatePassword(String email, String newPassword) {
         UserModel user = userRepository.findByEmail(email);
         if (user != null) {
